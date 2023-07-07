@@ -1,0 +1,15 @@
+.header-container {
+    position: absolute;
+    float: left;
+    padding: 10px;
+    top: 0;
+}
+
+.header-top-left {
+    font-size: 1.1em;
+    position: absolute;
+    top: 8px;
+    left: 75px;
+    font-weight: 400;
+    text-align: center;
+}
