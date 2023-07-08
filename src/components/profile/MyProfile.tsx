@@ -47,7 +47,6 @@ const MyProfile = () => {
 				setLoading(false);
 			}
 		};
-
 		fetchUserDetails().then();
 	}, []);
 
@@ -67,6 +66,7 @@ const MyProfile = () => {
 			)}
 			<Box
 				flexDirection={isSmallScreen ? 'column' : 'row'}
+				hidden={loading}
 				sx={{
 					flexGrow: 1,
 					display: 'flex',

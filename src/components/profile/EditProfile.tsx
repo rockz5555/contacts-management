@@ -40,6 +40,7 @@ import {
 	LOCAL_STORAGE_USER_EMAIL_KEY,
 } from '../../shared/constants';
 import { UserFullInterface } from '../../shared/user.interface';
+import { isMobileBrowser } from '../../utils/utils-utl';
 import ActionButtons from './ActionButtons';
 import { a11yProps, TabPanel } from './common-config';
 import './Style.css';
@@ -69,7 +70,6 @@ const EditProfile = () => {
 				setLoading(false);
 			}
 		};
-
 		fetchUserDetails().then();
 	}, []);
 
@@ -89,17 +89,20 @@ const EditProfile = () => {
 
 	const handleAddItemKeyPress = (
 		event: any,
-		changeType: 'hobbies' | 'sports' | 'music' | 'movies'
+		valuesType: 'hobbies' | 'sports' | 'music' | 'movies'
 	) => {
-		const key = event.key;
+		let value: string = event.target.value;
+		const key: string = event.key;
+		const valueEndsSpecial: boolean = value.endsWith(':;');
 
-		if (key === 'Enter' || key === 'Tab' || key === ';') {
+		if (key === 'Enter' || key === 'Tab' || valueEndsSpecial) {
 			event.preventDefault();
 
-			const value: string = event.target.value;
 			let itemExist = true;
 
-			switch (changeType) {
+			value = valueEndsSpecial ? value.replace(':;', '') : value;
+
+			switch (valuesType) {
 			case 'hobbies': {
 				if (isItemNotExist(profileData.hobbiesAndInterests, value)) {
 					itemExist = false;
@@ -163,6 +166,17 @@ const EditProfile = () => {
 		}
 	};
 
+	const handleAddItemKeyPressForMobile = (
+		event: any,
+		valuesType: 'hobbies' | 'sports' | 'music' | 'movies'
+	) => {
+		event.preventDefault();
+
+		if (isMobileBrowser()) {
+			handleAddItemKeyPress(event, valuesType);
+		}
+	};
+
 	const handleSubmit = async (event: BaseSyntheticEvent) => {
 		event.preventDefault();
 
@@ -212,6 +226,7 @@ const EditProfile = () => {
 				component="form"
 				onSubmit={handleSubmit}
 				flexDirection={isSmallScreen ? 'column' : 'row'}
+				hidden={loading}
 				autoComplete="off"
 				sx={{
 					flexGrow: 1,
@@ -637,10 +652,13 @@ const EditProfile = () => {
 								</Typography>
 								<div>
 									<TextField
-										label="Type and enter/tab key to add"
+										label="Type and enter or tab or :; key to add"
 										variant="standard"
-										placeholder="Type and enter/tab key to add"
+										placeholder="Type and enter or tab or :; key to add"
 										onKeyDown={(e) => handleAddItemKeyPress(e, 'hobbies')}
+										onKeyUp={(e) =>
+											handleAddItemKeyPressForMobile(e, 'hobbies')
+										}
 										sx={{
 											width: 300,
 											marginBottom: 2,
@@ -673,10 +691,11 @@ const EditProfile = () => {
 								</Typography>
 								<div>
 									<TextField
-										label="Type and enter/tab key to add"
+										label="Type and enter or tab or :; key to add"
 										variant="standard"
-										placeholder="Type and enter/tab key to add"
+										placeholder="Type and enter or tab or :; key to add"
 										onKeyDown={(e) => handleAddItemKeyPress(e, 'sports')}
+										onKeyUp={(e) => handleAddItemKeyPressForMobile(e, 'sports')}
 										sx={{
 											width: 300,
 											marginBottom: 2,
@@ -709,10 +728,11 @@ const EditProfile = () => {
 								</Typography>
 								<div>
 									<TextField
-										label="Type and enter/tab key to add"
+										label="Type and enter or tab or :; key to add"
 										variant="standard"
-										placeholder="Type and enter/tab key to add"
+										placeholder="Type and enter or tab or :; key to add"
 										onKeyDown={(e) => handleAddItemKeyPress(e, 'music')}
+										onKeyUp={(e) => handleAddItemKeyPressForMobile(e, 'music')}
 										sx={{
 											width: 300,
 											marginBottom: 2,
@@ -745,10 +765,11 @@ const EditProfile = () => {
 								</Typography>
 								<div>
 									<TextField
-										label="Type and enter/tab key to add"
+										label="Type and enter or tab or :; key to add"
 										variant="standard"
-										placeholder="Type and enter/tab key to add"
+										placeholder="Type and enter or tab or :; key to add"
 										onKeyDown={(e) => handleAddItemKeyPress(e, 'movies')}
+										onKeyUp={(e) => handleAddItemKeyPressForMobile(e, 'movies')}
 										sx={{
 											width: 300,
 											marginBottom: 2,

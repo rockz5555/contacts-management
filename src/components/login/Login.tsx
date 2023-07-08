@@ -21,8 +21,8 @@ import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { API_URL, LOCAL_STORAGE_USER_EMAIL_KEY } from '../../shared/constants';
-import { hasAValidCookie } from '../../utils/cookie-util';
 import { defaultTheme } from '../../utils/get-theme';
+import { hasValidCookie } from '../../utils/utils-utl';
 
 const Login = () => {
 	const [loading, setLoading] = useState(false);
@@ -78,7 +78,7 @@ const Login = () => {
 	};
 
 	useEffect(() => {
-		if (hasAValidCookie()) {
+		if (hasValidCookie()) {
 			navigate('/home');
 		}
 	}, [navigate]);

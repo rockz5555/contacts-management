@@ -3,7 +3,7 @@ import { Logout } from '@mui/icons-material';
 import * as React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import { hasAValidCookie } from '../utils/cookie-util';
+import { hasValidCookie } from '../utils/utils-utl';
 import MyContacts from './home/MyContacts';
 import Login from './login/Login';
 import EditProfile from './profile/EditProfile';
@@ -12,7 +12,7 @@ import Register from './register/Register';
 import Sidebar from './sidebar/Sidebar';
 
 const ContactsManagementApp = () => {
-	const isLoggedIn: boolean = hasAValidCookie();
+	const isLoggedIn: boolean = hasValidCookie();
 
 	return (
 		<BrowserRouter>
