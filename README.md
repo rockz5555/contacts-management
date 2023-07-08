@@ -8,7 +8,7 @@ contacts.
 ### Installation
 
 1. Clone the repository.
-2. Navigate to the `client` folder.
+2. Navigate to the `contacts-management` folder.
 3. Install the dependencies using `npm install`.
 
 ### Usage
