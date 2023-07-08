@@ -60,8 +60,8 @@ const MyProfile = () => {
 			{loading && (
 				<LinearProgress
 					sx={{
-						height: 10,
-						bottom: 10,
+						height: 4,
+						top: 10,
 					}}
 				/>
 			)}

@@ -200,8 +200,8 @@ const EditProfile = () => {
 			{loading && (
 				<LinearProgress
 					sx={{
-						height: 10,
-						bottom: 10,
+						height: 4,
+						bottom: 6,
 					}}
 				/>
 			)}
