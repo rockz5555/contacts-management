@@ -6,6 +6,7 @@ import {
 	Container,
 	CssBaseline,
 	Grid,
+	LinearProgress,
 	TextField,
 	ThemeProvider,
 } from '@mui/material';
@@ -20,6 +21,7 @@ import { API_URL } from '../../shared/constants';
 import { defaultTheme } from '../../utils/get-theme';
 
 const Register = () => {
+	const [loading, setLoading] = useState(false);
 	const [userId, setUserId] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,6 +35,7 @@ const Register = () => {
 		const email = data.get('email');
 		const password = data.get('password');
 
+		setLoading(true);
 		try {
 			const response = await axios.post(`${API_URL}/auth/register`, {
 				email,
@@ -48,6 +51,8 @@ const Register = () => {
 			setRegisterSuccess('');
 
 			console.error('An error occurred during register:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -62,6 +67,16 @@ const Register = () => {
 		<ThemeProvider theme={defaultTheme}>
 			<Container component="main" maxWidth="xs" sx={{ marginTop: 15 }}>
 				<CssBaseline />
+
+				{loading && (
+					<LinearProgress
+						sx={{
+							height: 4,
+							top: 10,
+						}}
+					/>
+				)}
+
 				<Box
 					sx={{
 						marginTop: 8,
@@ -115,10 +130,10 @@ const Register = () => {
 							fullWidth
 							variant="contained"
 							color="info"
-							disabled={!hasInputValidated()}
+							disabled={loading || !hasInputValidated()}
 							sx={{ mt: 3, mb: 2 }}
 						>
-							Register
+							{loading ? 'Registering, Please wait...' : 'Register'}
 						</Button>
 						<Grid container>
 							Got an account? &nbsp;

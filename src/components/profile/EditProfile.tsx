@@ -83,48 +83,80 @@ const EditProfile = () => {
 		setPreviewImage(URL.createObjectURL(file) as any);
 	};
 
+	const isItemNotExist = (arr: string[], value: string): boolean => {
+		return !arr.find((f) => f.toLowerCase() === value.toLowerCase());
+	};
+
 	const handleAddItemKeyPress = (
 		event: any,
 		changeType: 'hobbies' | 'sports' | 'music' | 'movies'
 	) => {
-		if (event.key === 'Enter' || event.key === 'Tab') {
+		const key = event.key;
+
+		if (key === 'Enter' || key === 'Tab' || key === ';') {
 			event.preventDefault();
 
+			const value: string = event.target.value;
+			let itemExist = true;
+
 			switch (changeType) {
-			case 'hobbies':
-				profileData.hobbiesAndInterests.push(event.target.value);
-				setProfileData((prevState) => {
-					return {
-						...prevState,
-						hobbiesAndInterests: profileData.hobbiesAndInterests,
-					};
-				});
+			case 'hobbies': {
+				if (isItemNotExist(profileData.hobbiesAndInterests, value)) {
+					itemExist = false;
+					profileData.hobbiesAndInterests.push(value);
+					setProfileData((prevState) => {
+						return {
+							...prevState,
+							hobbiesAndInterests: profileData.hobbiesAndInterests,
+						};
+					});
+				}
 				break;
-			case 'sports':
-				profileData.favoriteSports.push(event.target.value);
-				setProfileData((prevState) => {
-					return {
-						...prevState,
-						favoriteSports: profileData.favoriteSports,
-					};
-				});
+			}
+			case 'sports': {
+				if (isItemNotExist(profileData.favoriteSports, value)) {
+					itemExist = false;
+					profileData.favoriteSports.push(value);
+					setProfileData((prevState) => {
+						return {
+							...prevState,
+							favoriteSports: profileData.favoriteSports,
+						};
+					});
+				}
 				break;
-			case 'music':
-				profileData.preferredMusicGenres.push(event.target.value);
-				setProfileData((prevState) => {
-					return {
-						...prevState,
-						preferredMusicGenres: profileData.preferredMusicGenres,
-					};
-				});
+			}
+			case 'music': {
+				if (isItemNotExist(profileData.preferredMusicGenres, value)) {
+					itemExist = false;
+					profileData.preferredMusicGenres.push(value);
+					setProfileData((prevState) => {
+						return {
+							...prevState,
+							preferredMusicGenres: profileData.preferredMusicGenres,
+						};
+					});
+				}
 				break;
+			}
 			default:
-				profileData.preferredMoviesAndTVShows.push(event.target.value);
-				setProfileData((prevState) => {
-					return {
-						...prevState,
-						preferredMoviesAndTVShows: profileData.preferredMoviesAndTVShows,
-					};
+				if (isItemNotExist(profileData.preferredMoviesAndTVShows, value)) {
+					itemExist = false;
+					profileData.preferredMoviesAndTVShows.push(value);
+					setProfileData((prevState) => {
+						return {
+							...prevState,
+							preferredMoviesAndTVShows:
+									profileData.preferredMoviesAndTVShows,
+						};
+					});
+				}
+			}
+			if (itemExist) {
+				toast.info('This item already added', {
+					theme: 'dark',
+					autoClose: 500,
+					hideProgressBar: true,
 				});
 			}
 			event.target.value = null;
@@ -175,6 +207,7 @@ const EditProfile = () => {
 			)}
 
 			<ToastContainer />
+
 			<Box
 				component="form"
 				onSubmit={handleSubmit}

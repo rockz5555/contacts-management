@@ -8,6 +8,7 @@ import {
 	CssBaseline,
 	FormControlLabel,
 	Grid,
+	LinearProgress,
 	TextField,
 	ThemeProvider,
 } from '@mui/material';
@@ -24,6 +25,7 @@ import { hasAValidCookie } from '../../utils/cookie-util';
 import { defaultTheme } from '../../utils/get-theme';
 
 const Login = () => {
+	const [loading, setLoading] = useState(false);
 	const [userId, setUserId] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -37,6 +39,7 @@ const Login = () => {
 		const email = data.get('email');
 		const password = data.get('password');
 
+		setLoading(true);
 		try {
 			const response = await axios.post(`${API_URL}/auth/login`, {
 				email,
@@ -65,6 +68,8 @@ const Login = () => {
 			setError(error.response.data.message);
 
 			console.error('An error occurred during login:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -82,6 +87,16 @@ const Login = () => {
 		<ThemeProvider theme={defaultTheme}>
 			<Container component="main" maxWidth="xs" sx={{ marginTop: 15 }}>
 				<CssBaseline />
+
+				{loading && (
+					<LinearProgress
+						sx={{
+							height: 4,
+							top: 10,
+						}}
+					/>
+				)}
+
 				<Box
 					sx={{
 						marginTop: 8,
@@ -134,10 +149,10 @@ const Login = () => {
 							fullWidth
 							variant="contained"
 							color="info"
-							disabled={!hasInputValidated()}
+							disabled={loading || !hasInputValidated()}
 							sx={{ mt: 3, mb: 2 }}
 						>
-							Login
+							{loading ? 'Logging In, Please wait...' : 'Login'}
 						</Button>
 						<Grid container>
 							No account? &nbsp;
