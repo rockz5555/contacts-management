@@ -15,7 +15,12 @@ import {
 } from '@mui/material';
 
 import axios from 'axios';
-import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
+import React, {
+	BaseSyntheticEvent,
+	Fragment,
+	useEffect,
+	useState,
+} from 'react';
 
 import { UserInterface } from '../../shared/user.interface';
 
@@ -92,118 +97,147 @@ const MyContacts = () => {
 	}, [filteredItems]);
 
 	return (
-		<div style={{ margin: '0 20px' }}>
-			<h1 className="nav-title">
-				My <span>Contacts</span>
-			</h1>
-
-			{error && (
-				<Alert
-					severity="error"
-					sx={{ textAlign: 'center', justifyContent: 'center' }}
-				>
-					{error}
-				</Alert>
-			)}
-
+		<Fragment>
 			{loading && (
 				<LinearProgress
 					sx={{
-						height: 10,
+						height: 4,
 					}}
 				/>
 			)}
 
-			<Grid container spacing={2} justifyContent="flex-end" marginBottom="15px">
-				<Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
-					<FormControl variant="outlined" fullWidth>
-						<InputLabel>Gender</InputLabel>
-						<Select
-							value={selectedGender}
-							onChange={handleGenderChange}
-							label="Gender"
-							variant="standard"
-							MenuProps={{ style: { maxHeight: '300px' } }}
-						>
-							<MenuItem value="">All</MenuItem>
-							{Array.from(
-								new Set(items.map((item: UserInterface) => item.gender))
-							).map((gender, index) => (
-								<MenuItem key={index} value={gender}>
-									{gender}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</Grid>
-				<Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
-					<FormControl variant="outlined" fullWidth>
-						<InputLabel>Country</InputLabel>
-						<Select
-							value={selectedCountry}
-							onChange={handleCountryChange}
-							label="Country"
-							variant="standard"
-							MenuProps={{ style: { maxHeight: '300px' } }}
-						>
-							<MenuItem value="">All</MenuItem>
-							{Array.from(
-								new Set(
-									items
-										.sort((x: { country: string }, y: { country: string }) =>
-											x.country > y.country ? 1 : -1
-										)
-										.map((item: UserInterface) => item.country)
-								)
-							).map((country, index) => (
-								<MenuItem key={index} value={country}>
-									{country}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</Grid>
-			</Grid>
+			<div style={{ margin: '0 20px' }}>
+				<h1 className="nav-title">
+					My <span>Contacts</span>
+				</h1>
 
-			<Grid container spacing={2}>
-				{paginatedItems.map((item: UserInterface, index: number) => (
-					<Grid item xs={12} sm={6} md={4} key={index}>
-						<Card
-							sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-between',
-								boxShadow: '0px 6px 8px rgba(0, 0, 0, 0.4)',
-							}}
-						>
-							<CardContent
+				{error && (
+					<Alert
+						severity="error"
+						sx={{ textAlign: 'center', justifyContent: 'center' }}
+					>
+						{error}
+					</Alert>
+				)}
+
+				<Grid
+					container
+					spacing={2}
+					justifyContent="flex-end"
+					marginBottom="15px"
+				>
+					<Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
+						<FormControl variant="outlined" fullWidth>
+							<InputLabel>Gender</InputLabel>
+							<Select
+								value={selectedGender}
+								onChange={handleGenderChange}
+								label="Gender"
+								variant="standard"
+								MenuProps={{ style: { maxHeight: '300px' } }}
+							>
+								<MenuItem value="">All</MenuItem>
+								{Array.from(
+									new Set(items.map((item: UserInterface) => item.gender))
+								).map((gender, index) => (
+									<MenuItem key={index} value={gender}>
+										{gender}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Grid>
+					<Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
+						<FormControl variant="outlined" fullWidth>
+							<InputLabel>Country</InputLabel>
+							<Select
+								value={selectedCountry}
+								onChange={handleCountryChange}
+								label="Country"
+								variant="standard"
+								MenuProps={{ style: { maxHeight: '300px' } }}
+							>
+								<MenuItem value="">All</MenuItem>
+								{Array.from(
+									new Set(
+										items
+											.sort((x: { country: string }, y: { country: string }) =>
+												x.country > y.country ? 1 : -1
+											)
+											.map((item: UserInterface) => item.country)
+									)
+								).map((country, index) => (
+									<MenuItem key={index} value={country}>
+										{country}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Grid>
+				</Grid>
+
+				<Grid container spacing={2}>
+					{paginatedItems.map((item: UserInterface, index: number) => (
+						<Grid item xs={12} sm={6} md={4} key={index}>
+							<Card
 								sx={{
-									height: '160px',
+									display: 'flex',
+									flexDirection: 'column',
+									justifyContent: 'space-between',
+									boxShadow: '0px 6px 8px rgba(0, 0, 0, 0.4)',
 								}}
 							>
-								<Grid container spacing={2} alignItems="center">
-									<Grid item>
-										<Avatar
-											alt={item.fullName}
-											src={item.profileImageUrl}
-											variant="square"
-											sx={{
-												width: 125,
-												height: 125,
-											}}
-										/>
-									</Grid>
-									<Grid item xs={6} container>
-										<Typography
-											variant="body2"
-											component="div"
-											fontWeight="bold"
-										>
-											{item.fullName}
-										</Typography>
-										<Tooltip title={item.email} placement="top">
+								<CardContent
+									sx={{
+										height: '160px',
+									}}
+								>
+									<Grid container spacing={2} alignItems="center">
+										<Grid item>
+											<Avatar
+												alt={item.fullName}
+												src={item.profileImageUrl}
+												variant="square"
+												sx={{
+													width: 125,
+													height: 125,
+												}}
+											/>
+										</Grid>
+										<Grid item xs={6} container>
+											<Typography
+												variant="body2"
+												component="div"
+												fontWeight="bold"
+											>
+												{item.fullName}
+											</Typography>
+											<Tooltip title={item.email} placement="top">
+												<a
+													href={`mailto:${item.email}`}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Typography
+														variant="body2"
+														color="text.secondary"
+														component="span"
+														style={{ textDecoration: 'underline' }}
+														sx={{
+															display: 'inline-block',
+															maxWidth: '175px',
+															overflow: 'hidden',
+															textOverflow: 'ellipsis',
+															whiteSpace: 'nowrap',
+														}}
+													>
+														{item.email}
+													</Typography>
+												</a>
+											</Tooltip>
+											<br />
 											<a
-												href={`mailto:${item.email}`}
+												href={`tel:${item.mobile}`}
 												target="_blank"
 												rel="noopener noreferrer"
 											>
@@ -211,74 +245,52 @@ const MyContacts = () => {
 													variant="body2"
 													color="text.secondary"
 													component="span"
-													style={{ textDecoration: 'underline' }}
-													sx={{
-														display: 'inline-block',
-														maxWidth: '175px',
-														overflow: 'hidden',
-														textOverflow: 'ellipsis',
-														whiteSpace: 'nowrap',
-													}}
 												>
-													{item.email}
+													{item.mobile}
 												</Typography>
 											</a>
-										</Tooltip>
-										<br />
-										<a
-											href={`tel:${item.mobile}`}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
 											<Typography
 												variant="body2"
 												color="text.secondary"
-												component="span"
+												sx={{
+													maxHeight: '3em',
+													overflow: 'hidden',
+													textOverflow: 'ellipsis',
+													display: '-webkit-box',
+													WebkitLineClamp: 3,
+													WebkitBoxOrient: 'vertical',
+												}}
 											>
-												{item.mobile}
+												{item.address}
 											</Typography>
-										</a>
-										<Typography
-											variant="body2"
-											color="text.secondary"
-											sx={{
-												maxHeight: '3em',
-												overflow: 'hidden',
-												textOverflow: 'ellipsis',
-												display: '-webkit-box',
-												WebkitLineClamp: 3,
-												WebkitBoxOrient: 'vertical',
-											}}
-										>
-											{item.address}
-										</Typography>
+										</Grid>
 									</Grid>
-								</Grid>
-							</CardContent>
-						</Card>
-					</Grid>
-				))}
-			</Grid>
-			{!loading && (
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'center',
-						paddingTop: '55px',
-						paddingBottom: '55px',
-					}}
-				>
-					<Pagination
-						count={Math.ceil(filteredCount / itemsPerPage)}
-						page={page}
-						onChange={handlePageChange}
-						variant="outlined"
-						size="large"
-						shape="rounded"
-					/>
-				</div>
-			)}
-		</div>
+								</CardContent>
+							</Card>
+						</Grid>
+					))}
+				</Grid>
+				{!loading && (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							paddingTop: '55px',
+							paddingBottom: '55px',
+						}}
+					>
+						<Pagination
+							count={Math.ceil(filteredCount / itemsPerPage)}
+							page={page}
+							onChange={handlePageChange}
+							variant="outlined"
+							size="large"
+							shape="rounded"
+						/>
+					</div>
+				)}
+			</div>
+		</Fragment>
 	);
 };
 

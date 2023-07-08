@@ -61,7 +61,7 @@ const MyProfile = () => {
 				<LinearProgress
 					sx={{
 						height: 4,
-						top: 10,
+						bottom: 6,
 					}}
 				/>
 			)}
