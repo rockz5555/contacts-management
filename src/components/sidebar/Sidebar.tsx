@@ -4,16 +4,25 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 import Cookies from 'js-cookie';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { Props as BurgerProps, slide as Menu } from 'react-burger-menu';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import logo from '../../images/contacts.png';
 import './Sidebar.css';
 
 const Sidebar = (props: BurgerProps) => {
+	const [navigationKey, setNavigationKey] = useState('');
+
+	const loc = useLocation();
+
+	useEffect(() => {
+		setNavigationKey(loc.pathname);
+	}, [loc]);
+
 	return (
 		<>
-			<Menu right width={400} {...props}>
+			<Menu right width={400} key={navigationKey} {...props}>
 				<div className="logo">
 					<img src={logo} width={100} height={100} alt="logo" />
 					<h3 className="sidebar-app-name">

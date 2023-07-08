@@ -54,8 +54,7 @@ const ContactsManagementApp = () => {
 					element={
 						isLoggedIn ? (
 							<>
-								<Sidebar />
-								<EditProfile />
+								<Sidebar /> <EditProfile />
 							</>
 						) : (
 							<Navigate to="/login" replace />
