@@ -394,7 +394,7 @@ const EditProfile = () => {
 									{profileData?.email ?? 'N/A'}
 								</Typography>
 							</Box>
-							<ActionButtons type="submit" />
+							<ActionButtons />
 						</Box>
 					</Box>
 				</TabPanel>
@@ -557,7 +557,7 @@ const EditProfile = () => {
 									</Select>
 								</FormControl>
 							</Box>
-							<ActionButtons type="submit" />
+							<ActionButtons />
 						</Box>
 					</Box>
 				</TabPanel>
@@ -619,7 +619,7 @@ const EditProfile = () => {
 										></Input>
 									</FormControl>
 								</Box>
-								<ActionButtons type="submit" />
+								<ActionButtons />
 							</Box>
 						</Box>
 					</TabPanel>
@@ -775,7 +775,7 @@ const EditProfile = () => {
 									  ))
 									: 'N/A'}
 							</Box>
-							<ActionButtons type="submit" />
+							<ActionButtons />
 						</Box>
 					</Box>
 				</TabPanel>
