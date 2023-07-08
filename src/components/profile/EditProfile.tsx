@@ -349,16 +349,17 @@ const EditProfile = () => {
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
 									<Select
-										required
 										value={profileData?.salutation || ''}
+										error={!profileData?.salutation}
+										label="Salutation"
+										variant="standard"
+										required
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												salutation: e.target.value,
 											}))
 										}
-										label="Salutation"
-										variant="standard"
 										MenuProps={{ style: { maxHeight: '300px' } }}
 									>
 										<MenuItem value="Mr.">Mr.</MenuItem>
@@ -366,22 +367,32 @@ const EditProfile = () => {
 										<MenuItem value="Mrs.">Mrs.</MenuItem>
 									</Select>
 								</FormControl>
+								{!profileData?.salutation && (
+									<Typography sx={{ color: '#d32f2f', fontSize: '0.75rem' }}>
+										Please select your salutation
+									</Typography>
+								)}
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
 								<Typography variant="h6" fontWeight="900">
 									First Name
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.firstName || ''}
+										error={!profileData?.firstName}
+										helperText={
+											!profileData?.firstName ? 'Firstname is required' : ''
+										}
+										variant="standard"
 										required
-										value={profileData?.firstName}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												firstName: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -389,16 +400,21 @@ const EditProfile = () => {
 									Last Name
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.lastName || ''}
+										error={!profileData?.lastName}
+										helperText={
+											!profileData?.lastName ? 'Lastname is required' : ''
+										}
+										variant="standard"
 										required
-										value={profileData?.lastName}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												lastName: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box>
@@ -422,16 +438,23 @@ const EditProfile = () => {
 									Mobile Number
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.mobileNumber || ''}
+										error={!profileData?.mobileNumber}
+										helperText={
+											!profileData?.mobileNumber
+												? 'Mobile number is required'
+												: ''
+										}
+										variant="standard"
 										required
-										value={profileData?.mobileNumber}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												mobileNumber: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -439,16 +462,23 @@ const EditProfile = () => {
 									Home Address
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.homeAddress || ''}
+										error={!profileData?.homeAddress}
+										helperText={
+											!profileData?.homeAddress
+												? 'Home address number is required'
+												: ''
+										}
+										variant="standard"
 										required
-										value={profileData?.homeAddress}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												homeAddress: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -456,16 +486,21 @@ const EditProfile = () => {
 									Country
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.country || ''}
+										error={!profileData?.country}
+										helperText={
+											!profileData?.country ? 'Country is required' : ''
+										}
+										variant="standard"
 										required
-										value={profileData?.country}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												country: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -473,16 +508,21 @@ const EditProfile = () => {
 									Postal Code
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.postalCode || ''}
+										error={!profileData?.postalCode}
+										helperText={
+											!profileData?.postalCode ? 'Postal code is required' : ''
+										}
+										variant="standard"
 										required
-										value={profileData?.postalCode}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												postalCode: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -490,16 +530,21 @@ const EditProfile = () => {
 									Nationality
 								</Typography>
 								<FormControl variant="outlined" fullWidth>
-									<Input
+									<TextField
+										value={profileData?.nationality || ''}
+										error={!profileData?.nationality}
+										helperText={
+											!profileData?.nationality ? 'Nationality is required' : ''
+										}
+										variant="standard"
 										required
-										value={profileData?.nationality}
 										onChange={(e) =>
 											setProfileData((prevData) => ({
 												...prevData,
 												nationality: e.target.value,
 											}))
 										}
-									></Input>
+									></TextField>
 								</FormControl>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -608,7 +653,7 @@ const EditProfile = () => {
 									</Typography>
 									<FormControl variant="outlined" fullWidth>
 										<Input
-											value={profileData?.spouseFirstName}
+											value={profileData?.spouseFirstName || ''}
 											onChange={(e) =>
 												setProfileData((prevData) => ({
 													...prevData,
@@ -624,7 +669,7 @@ const EditProfile = () => {
 									</Typography>
 									<FormControl variant="outlined" fullWidth>
 										<Input
-											value={profileData?.spouseLastName}
+											value={profileData?.spouseLastName || ''}
 											onChange={(e) =>
 												setProfileData((prevData) => ({
 													...prevData,
