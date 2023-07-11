@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 interface BtnProps {
 	onClick?: (e: SyntheticEvent) => void;
-	type?: 'submit' | 'reset' | 'button';
 }
 
 const ActionButtons = (props: BtnProps) => {

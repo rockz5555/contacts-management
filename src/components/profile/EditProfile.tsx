@@ -47,7 +47,7 @@ import './Style.css';
 
 const EditProfile = () => {
 	const [loading, setLoading] = useState(true);
-	const [value, setValue] = useState(0);
+	const [tabValue, setTabValue] = useState(0);
 	const [profileData, setProfileData] = useState<UserFullInterface>(
 		null as any
 	);
@@ -73,8 +73,8 @@ const EditProfile = () => {
 		fetchUserDetails().then();
 	}, []);
 
-	const handleChange = (event: SyntheticEvent, newValue: number) => {
-		setValue(newValue);
+	const handleTabChange = (event: SyntheticEvent, newValue: number) => {
+		setTabValue(newValue);
 	};
 
 	const handleImageUpload = (event: BaseSyntheticEvent) => {
@@ -238,8 +238,8 @@ const EditProfile = () => {
 				<Tabs
 					orientation={isSmallScreen ? 'horizontal' : 'vertical'}
 					variant="scrollable"
-					value={value}
-					onChange={handleChange}
+					value={tabValue}
+					onChange={handleTabChange}
 					sx={{
 						borderRight: 1,
 						borderColor: 'divider',
@@ -286,7 +286,7 @@ const EditProfile = () => {
 					Go back to My Profile
 				</Link>
 
-				<TabPanel value={value} index={0}>
+				<TabPanel value={tabValue} index={0}>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>
 						<Box
 							sx={{
@@ -430,7 +430,7 @@ const EditProfile = () => {
 					</Box>
 				</TabPanel>
 
-				<TabPanel value={value} index={1}>
+				<TabPanel value={tabValue} index={1}>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>
 						<Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -623,7 +623,7 @@ const EditProfile = () => {
 				</TabPanel>
 
 				{profileData?.maritalStatus === 'Married' && (
-					<TabPanel value={value} index={2}>
+					<TabPanel value={tabValue} index={2}>
 						<Box sx={{ display: 'flex', marginBottom: 2 }}>
 							<Box>
 								<Box sx={{ marginBottom: 2 }}>
@@ -686,7 +686,7 @@ const EditProfile = () => {
 				)}
 
 				<TabPanel
-					value={value}
+					value={tabValue}
 					index={profileData?.maritalStatus === 'Married' ? 3 : 2}
 				>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>

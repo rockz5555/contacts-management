@@ -28,7 +28,7 @@ import './Style.css';
 
 const MyProfile = () => {
 	const [loading, setLoading] = useState(true);
-	const [value, setValue] = useState(0);
+	const [tabValue, setTabValue] = useState(0);
 	const [profileData, setProfileData] = useState({} as UserFullInterface);
 
 	const theme = useTheme();
@@ -50,8 +50,8 @@ const MyProfile = () => {
 		fetchUserDetails().then();
 	}, []);
 
-	const handleChange = (event: SyntheticEvent, newValue: number) => {
-		setValue(newValue);
+	const handleTabChange = (event: SyntheticEvent, newValue: number) => {
+		setTabValue(newValue);
 	};
 
 	return (
@@ -77,8 +77,8 @@ const MyProfile = () => {
 				<Tabs
 					orientation={isSmallScreen ? 'horizontal' : 'vertical'}
 					variant="scrollable"
-					value={value}
-					onChange={handleChange}
+					value={tabValue}
+					onChange={handleTabChange}
 					sx={{
 						borderRight: 1,
 						borderColor: 'divider',
@@ -125,7 +125,7 @@ const MyProfile = () => {
 					<DriveFileRenameOutlineOutlined />
 				</Link>
 
-				<TabPanel value={value} index={0}>
+				<TabPanel value={tabValue} index={0}>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>
 						<Box sx={{ marginRight: 4 }}>
 							<Avatar
@@ -143,7 +143,7 @@ const MyProfile = () => {
 									Salutation
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.salutation ?? 'N/A'}
+									{profileData.salutation || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -151,7 +151,7 @@ const MyProfile = () => {
 									First Name
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.firstName ?? 'N/A'}
+									{profileData.firstName || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -159,7 +159,7 @@ const MyProfile = () => {
 									Last Name
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.lastName ?? 'N/A'}
+									{profileData.lastName || 'N/A'}
 								</Typography>
 							</Box>
 							<Box>
@@ -167,14 +167,14 @@ const MyProfile = () => {
 									Email Address
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.email ?? 'N/A'}
+									{profileData.email || 'N/A'}
 								</Typography>
 							</Box>
 						</Box>
 					</Box>
 				</TabPanel>
 
-				<TabPanel value={value} index={1}>
+				<TabPanel value={tabValue} index={1}>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>
 						<Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -182,7 +182,7 @@ const MyProfile = () => {
 									Mobile Number
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.mobileNumber ?? 'N/A'}
+									{profileData.mobileNumber || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -190,7 +190,7 @@ const MyProfile = () => {
 									Home Address
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.homeAddress ?? 'N/A'}
+									{profileData.homeAddress || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -198,7 +198,7 @@ const MyProfile = () => {
 									Country
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.country ?? 'N/A'}
+									{profileData.country || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -206,7 +206,7 @@ const MyProfile = () => {
 									Postal Code
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.postalCode ?? 'N/A'}
+									{profileData.postalCode || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -214,7 +214,7 @@ const MyProfile = () => {
 									Nationality
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.nationality ?? 'N/A'}
+									{profileData.nationality || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -234,7 +234,7 @@ const MyProfile = () => {
 									Gender
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.gender ?? 'N/A'}
+									{profileData.gender || 'N/A'}
 								</Typography>
 							</Box>
 							<Box sx={{ marginBottom: 2 }}>
@@ -242,7 +242,7 @@ const MyProfile = () => {
 									Martial Status
 								</Typography>
 								<Typography variant="body2" fontWeight="300">
-									{profileData.maritalStatus ?? 'N/A'}
+									{profileData.maritalStatus || 'N/A'}
 								</Typography>
 							</Box>
 						</Box>
@@ -250,7 +250,7 @@ const MyProfile = () => {
 				</TabPanel>
 
 				{profileData.maritalStatus === 'Married' && (
-					<TabPanel value={value} index={2}>
+					<TabPanel value={tabValue} index={2}>
 						<Box sx={{ display: 'flex', marginBottom: 2 }}>
 							<Box>
 								<Box sx={{ marginBottom: 2 }}>
@@ -258,7 +258,7 @@ const MyProfile = () => {
 										Salutation
 									</Typography>
 									<Typography variant="body2" fontWeight="300">
-										{profileData.spouseSalutation ?? 'N/A'}
+										{profileData.spouseSalutation || 'N/A'}
 									</Typography>
 								</Box>
 								<Box sx={{ marginBottom: 2 }}>
@@ -266,7 +266,7 @@ const MyProfile = () => {
 										First Name
 									</Typography>
 									<Typography variant="body2" fontWeight="300">
-										{profileData.spouseFirstName ?? 'N/A'}
+										{profileData.spouseFirstName || 'N/A'}
 									</Typography>
 								</Box>
 								<Box sx={{ marginBottom: 2 }}>
@@ -274,7 +274,7 @@ const MyProfile = () => {
 										Last Name
 									</Typography>
 									<Typography variant="body2" fontWeight="300">
-										{profileData.spouseLastName ?? 'N/A'}
+										{profileData.spouseLastName || 'N/A'}
 									</Typography>
 								</Box>
 							</Box>
@@ -283,7 +283,7 @@ const MyProfile = () => {
 				)}
 
 				<TabPanel
-					value={value}
+					value={tabValue}
 					index={profileData.maritalStatus === 'Married' ? 3 : 2}
 				>
 					<Box sx={{ display: 'flex', marginBottom: 2 }}>
