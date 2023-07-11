@@ -3,6 +3,7 @@ import {
 	Avatar,
 	Card,
 	CardContent,
+	Divider,
 	FormControl,
 	Grid,
 	InputLabel,
@@ -35,9 +36,26 @@ const MyContacts = () => {
 	const [selectedCountry, setSelectedCountry] = useState('');
 	const [filteredCount, setFilteredCount] = useState(0);
 
+	const startIndex: number = (page - 1) * itemsPerPage;
+	const endIndex: number = page * itemsPerPage;
+	const filteredItems: UserInterface[] = items.filter((item: UserInterface) => {
+		if (selectedGender && item.gender !== selectedGender) {
+			return false;
+		}
+		return !(selectedCountry && item.country !== selectedCountry);
+	});
+	const paginatedItems: UserInterface[] = filteredItems.slice(
+		startIndex,
+		endIndex
+	);
+
 	useEffect(() => {
 		fetchUsers().then();
 	}, []);
+
+	useEffect(() => {
+		setFilteredCount(filteredItems.length);
+	}, [filteredItems]);
 
 	const fetchUsers = async () => {
 		try {
@@ -78,23 +96,6 @@ const MyContacts = () => {
 		setSelectedCountry(event.target.value as string);
 		setPage(1);
 	};
-
-	const startIndex: number = (page - 1) * itemsPerPage;
-	const endIndex: number = page * itemsPerPage;
-	const filteredItems: UserInterface[] = items.filter((item: UserInterface) => {
-		if (selectedGender && item.gender !== selectedGender) {
-			return false;
-		}
-		return !(selectedCountry && item.country !== selectedCountry);
-	});
-	const paginatedItems: UserInterface[] = filteredItems.slice(
-		startIndex,
-		endIndex
-	);
-
-	useEffect(() => {
-		setFilteredCount(filteredItems.length);
-	}, [filteredItems]);
 
 	return (
 		<Fragment>
@@ -137,6 +138,7 @@ const MyContacts = () => {
 								MenuProps={{ style: { maxHeight: '300px' } }}
 							>
 								<MenuItem value="">All</MenuItem>
+								<Divider />
 								{Array.from(
 									new Set(items.map((item: UserInterface) => item.gender))
 								).map((gender, index) => (
@@ -158,6 +160,7 @@ const MyContacts = () => {
 								MenuProps={{ style: { maxHeight: '300px' } }}
 							>
 								<MenuItem value="">All</MenuItem>
+								<Divider />
 								{Array.from(
 									new Set(
 										items
